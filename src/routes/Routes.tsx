@@ -5,9 +5,10 @@ import Contact from "../pages/Contact";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ErrorPage from "../pages/ErrorPage";
-import { adminRoutes } from "./admin.routes";
+import { adminPaths } from "./admin.routes";
 import { studentPaths } from "./student.routes";
 import { facultyPaths } from "./faculty.routes";
+import { routeGenerator } from "../utils/routesGenerator";
 
 const router = createBrowserRouter([
   {
@@ -29,19 +30,19 @@ const router = createBrowserRouter([
     path: "/admin",
     element: <App />,
     errorElement: <ErrorPage />,
-    children: adminRoutes,
+    children: routeGenerator(adminPaths),
   },
   {
     path: "/faculty",
     element: <App />,
     errorElement: <ErrorPage />,
-    children: facultyPaths,
+    children: routeGenerator(facultyPaths),
   },
   {
     path: "/student",
     element: <App />,
     errorElement: <ErrorPage />,
-    children: studentPaths,
+    children: routeGenerator(studentPaths),
   },
   {
     path: "/login", //Absolute path
