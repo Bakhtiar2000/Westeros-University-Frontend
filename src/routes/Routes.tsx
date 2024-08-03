@@ -29,23 +29,20 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <App />,
-    errorElement: <ErrorPage />,
     children: routeGenerator(adminPaths),
   },
   {
     path: "/faculty",
     element: <App />,
-    errorElement: <ErrorPage />,
     children: routeGenerator(facultyPaths),
   },
   {
     path: "/student",
     element: <App />,
-    errorElement: <ErrorPage />,
     children: routeGenerator(studentPaths),
   },
   {
-    path: "/login", //Absolute path
+    path: "/login",
     element: <Login />,
   },
   {
