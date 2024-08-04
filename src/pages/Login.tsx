@@ -31,7 +31,6 @@ const Login = () => {
     try {
       const res = await login(userInfo).unwrap(); //here .unwrap() Unwraps a mutation call and provide the raw response.
       const user = verifyToken(res.data.accessToken) as TUser;
-      console.log(user);
       dispatch(setUser({ user: user, token: res.data.accessToken }));
       toast.success("logged In", { id: loginToastId, duration: 2000 });
       navigate(`/${user.role}/dashboard`);
