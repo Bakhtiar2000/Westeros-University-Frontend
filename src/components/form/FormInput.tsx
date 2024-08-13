@@ -14,7 +14,7 @@ const FormInput = ({ type, name, label }: TInputProps) => {
         name={name} // registered the field here
         render={({ field }) => (
           <Form.Item label={label}>
-            <Input {...field} type={type} id={name} />
+            <Input {...field} size="large" type={type} id={name} />
           </Form.Item>
         )}
       />
