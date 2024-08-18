@@ -1,6 +1,7 @@
-import { Table, TableColumnsType, TableProps } from "antd";
+import { Button, Table, TableColumnsType, TableProps } from "antd";
 import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
-import { TAcademicSemester } from "../../../types";
+import { TAcademicSemester, TQueryParam } from "../../../types";
+import { useState } from "react";
 
 export type TTableData = Pick<
   TAcademicSemester, // Picking only name, year, startMonth, endMonth these fields from TAcademicSemester
@@ -8,13 +9,17 @@ export type TTableData = Pick<
 >;
 
 const AcademicSemester = () => {
-  // const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
-  const { data: semesterData } = useGetAllSemestersQuery([
-    { name: "year", value: "2024" },
-  ]);
+  const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
+
+  // params is setting args (arguments) for the query of getAllSemesters
+  const {
+    data: semesterData,
+    isLoading,
+    isFetching,
+  } = useGetAllSemestersQuery(params);
   const tableData = semesterData?.data?.map(
     ({ _id, name, year, endMonth, startMonth }) => ({
-      _id,
+      key: _id,
       name,
       year,
       endMonth,
@@ -24,8 +29,8 @@ const AcademicSemester = () => {
   const columns: TableColumnsType<TTableData> = [
     {
       title: "Name",
-      // key: "name",
-      dataIndex: "name", // this name must match with the property name in the response data
+
+      dataIndex: "name", // This name must match with the property name in the response data
       filters: [
         {
           text: "Spring",
@@ -43,8 +48,7 @@ const AcademicSemester = () => {
     },
     {
       title: "Year",
-      // key: "year",
-      dataIndex: "year", // this name must match with the property name in the response data
+      dataIndex: "year", // This name must match with the property name in the response data
       filters: [
         {
           text: "2024",
@@ -62,30 +66,57 @@ const AcademicSemester = () => {
     },
     {
       title: "Start Month",
-      // key: "startMonth",
-      dataIndex: "startMonth", // this name must match with the property name in the response data
+      dataIndex: "startMonth", // This name must match with the property name in the response data
     },
     {
       title: "End Month",
-      // key: "endMonth",
-      dataIndex: "endMonth", // this name must match with the property name in the response data
+      dataIndex: "endMonth", // This name must match with the property name in the response data
+    },
+    {
+      title: "Action",
+      render: () => {
+        return (
+          <div>
+            <Button>Update</Button>
+          </div>
+        );
+      },
     },
   ];
 
   const onChange: TableProps<TTableData>["onChange"] = (
-    pagination,
+    _pagination, // If there is any unused args, use underscore before the variable name
     filters,
-    sorter,
+    _sorter,
     extra
   ) => {
-    console.log("params", pagination, filters, sorter, extra);
+    if (extra.action === "filter") {
+      const queryParams: TQueryParam[] = [];
+
+      // filter params for semester name (Spring, Fall, Summer)
+      filters.name?.forEach((item) => {
+        queryParams.push({ name: "name", value: item });
+      });
+
+      // filter params for semester year
+      filters.year?.forEach((item) => {
+        queryParams.push({ name: "year", value: item });
+      });
+
+      setParams(queryParams);
+    }
   };
+
+  if (isLoading) {
+    <p className="text-center text-5xl font-semibold mt-40">Loading...</p>;
+  }
+
   return (
     <Table
+      loading={isFetching} // Shows loading animation from ant design
       columns={columns}
       dataSource={tableData}
       onChange={onChange}
-      showSorterTooltip={{ target: "sorter-icon" }}
     />
   );
 };
