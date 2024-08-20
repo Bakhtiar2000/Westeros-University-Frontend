@@ -1,7 +1,7 @@
-import { FieldValues, SubmitHandler } from "react-hook-form";
+import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
 import FormInput from "../../../components/form/FormInput";
 import UniForm from "../../../components/form/UniForm";
-import { Button, Col, Divider, Row } from "antd";
+import { Button, Col, Divider, Form, Input, Row } from "antd";
 import FormSelect from "../../../components/form/FormSelect";
 import { bloodGroupOptions, genderOptions } from "../../../constants/global";
 import FormDatePicker from "../../../components/form/FormDatePicker";
@@ -55,13 +55,13 @@ const studentDummyData = {
 const studentDefaultValues = {
   name: {
     firstName: "Mustafa",
-    middleName: "",
+    middleName: "Jahan",
     lastName: "Kabir",
   },
   gender: "male",
   bloodGroup: "B-",
 
-  email: "testing1@example.com",
+  email: "testing2@example.com",
   contactNo: "+1234567892",
   emergencyContactNo: "+0987654323",
   presentAddress: "987 Maple Street, Village, Country",
@@ -82,6 +82,9 @@ const studentDefaultValues = {
     contactNo: "+1234987656",
     address: "321 Local Boulevard, Village, Country",
   },
+
+  // admissionSemester: "665de33616ef1a58ead4e1f7",
+  academicDepartment: "665e0623829cf291c95afdd5",
 };
 
 const CreateStudent = () => {
@@ -109,10 +112,11 @@ const CreateStudent = () => {
     };
     const formData = new FormData();
     formData.append("data", JSON.stringify(studentData));
+    formData.append("file", data.image);
     addStudent(formData);
 
     //Checking just for development phase. To console formData, we have to use Object.formEntries
-    console.log(Object.fromEntries(formData));
+    // console.log(Object.fromEntries(formData));
   };
   return (
     <Row>
@@ -151,6 +155,23 @@ const CreateStudent = () => {
                 options={bloodGroupOptions}
                 name="bloodGroup"
                 label="Blood group"
+              />
+            </Col>
+            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+              <Controller
+                name="image"
+                // field object, provided by Controller of react-hook-form, contains several properties to manage the input's state, including onChange, value, name, ref etc.
+                render={({ field: { onChange, value, ...field } }) => (
+                  <Form.Item label="Picture">
+                    {/* Form.Item ensures that the input field and its associated label (Picture) are properly aligned */}
+                    <Input
+                      type="file"
+                      value={value?.fileName}
+                      {...field}
+                      onChange={(e) => onChange(e.target.files?.[0])} //This overrides the default onChange handler to update the form's state with the selected file
+                    />
+                  </Form.Item>
+                )}
               />
             </Col>
           </Row>
@@ -207,8 +228,8 @@ const CreateStudent = () => {
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <FormInput
                 type="text"
-                name="guardian.fatherContactNo"
-                label="Father ContactNo"
+                name="guardian.fatherContactNumber"
+                label="Father Contact No"
               />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
@@ -228,8 +249,8 @@ const CreateStudent = () => {
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <FormInput
                 type="text"
-                name="guardian.motherContactNo"
-                label="Mother ContactNo"
+                name="guardian.motherContactNumber"
+                label="Mother Contact No"
               />
             </Col>
           </Row>
