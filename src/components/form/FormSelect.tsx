@@ -4,14 +4,17 @@ import { Controller } from "react-hook-form";
 type TFormSelectProps = {
   label: string;
   name: string;
-  options: {
-    value: string;
-    label: string;
-    disabled?: boolean;
-  }[];
+  options:
+    | {
+        value: string;
+        label: string;
+        disabled?: boolean;
+      }[]
+    | undefined;
+  disabled?: boolean;
 };
 
-const FormSelect = ({ label, name, options }: TFormSelectProps) => {
+const FormSelect = ({ label, name, options, disabled }: TFormSelectProps) => {
   return (
     <Controller
       name={name}
@@ -22,6 +25,7 @@ const FormSelect = ({ label, name, options }: TFormSelectProps) => {
             style={{ width: "100%" }}
             size="large"
             options={options}
+            disabled={disabled}
           />
           {error && <small className="text-red-500">{error.message}</small>}
         </Form.Item>
