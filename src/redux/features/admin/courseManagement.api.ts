@@ -8,6 +8,7 @@ import { baseApi } from "../../api/baseApi";
 
 const courseManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    //-----------------Get All Registered Semesters-----------------
     getAllRegisteredSemesters: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
@@ -24,7 +25,7 @@ const courseManagementApi = baseApi.injectEndpoints({
           params: params,
         };
       },
-      // providesTags: ['semester'],
+      providesTags: ["semester"],
       transformResponse: (response: TResponseRedux<TSemester[]>) => {
         return {
           data: response.data,
@@ -32,22 +33,28 @@ const courseManagementApi = baseApi.injectEndpoints({
         };
       },
     }),
+
+    //-----------------Add Registered Semester-----------------
     addRegisteredSemester: builder.mutation({
       query: (data) => ({
         url: "/semester-registrations/create-semester-registration",
         method: "POST",
         body: data,
       }),
-      // invalidatesTags: ['semester'],
+      invalidatesTags: ["semester"],
     }),
+
+    //-----------------Update Registered Semesters-----------------
     updateRegisteredSemester: builder.mutation({
       query: (args) => ({
         url: `/semester-registrations/${args.id}`,
         method: "PATCH",
         body: args.data,
       }),
-      // invalidatesTags: ['semester'],
+      invalidatesTags: ["semester"],
     }),
+
+    //-----------------Get All Courses-----------------
     getAllCourses: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
@@ -64,7 +71,7 @@ const courseManagementApi = baseApi.injectEndpoints({
           params: params,
         };
       },
-      // providesTags: ['courses'],
+      providesTags: ["courses"],
       transformResponse: (response: TResponseRedux<TCourse[]>) => {
         return {
           data: response.data,
@@ -72,21 +79,25 @@ const courseManagementApi = baseApi.injectEndpoints({
         };
       },
     }),
+
+    //-----------------Add Course-----------------
     addCourse: builder.mutation({
       query: (data) => ({
         url: `/courses/create-course`,
         method: "POST",
         body: data,
       }),
-      // invalidatesTags: ['courses'],
+      invalidatesTags: ["courses"],
     }),
+
+    //-----------------Add Faculties to the course-----------------
     addFaculties: builder.mutation({
       query: (args) => ({
         url: `/courses/${args.courseId}/assign-faculties`,
         method: "PUT",
         body: args.data,
       }),
-      // invalidatesTags: ['courses'],
+      invalidatesTags: ["courses"],
     }),
   }),
 });

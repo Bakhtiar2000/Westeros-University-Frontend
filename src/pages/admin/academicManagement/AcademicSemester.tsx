@@ -9,14 +9,14 @@ export type TTableData = Pick<
 >;
 
 const AcademicSemester = () => {
-  const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
+  const [params, setParams] = useState<TQueryParam[]>([]);
 
   // params is setting args (arguments) for the query of getAllSemesters
   const {
     data: semesterData,
     isLoading,
     isFetching,
-  } = useGetAllSemestersQuery(params);
+  } = useGetAllSemestersQuery([{ name: "sort", value: "year" }, ...params]);
   const tableData = semesterData?.data?.map(
     ({ _id, name, year, endMonth, startMonth }) => ({
       key: _id,
