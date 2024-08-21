@@ -9,6 +9,7 @@ import { baseApi } from "../../api/baseApi";
 
 const academicManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    //------------------Get All Semesters----------------
     getAllSemesters: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
@@ -31,6 +32,7 @@ const academicManagementApi = baseApi.injectEndpoints({
       },
     }),
 
+    //------------------Add Academic Semesters----------------
     addAcademicSemesters: builder.mutation({
       query: (data) => ({
         url: "/academic-semesters/create-academic-semester",
@@ -39,6 +41,7 @@ const academicManagementApi = baseApi.injectEndpoints({
       }),
     }),
 
+    //------------------Get Academic Faculties----------------
     getAcademicFaculties: builder.query({
       query: () => {
         return { url: "/academic-faculties", method: "GET" };
@@ -51,6 +54,7 @@ const academicManagementApi = baseApi.injectEndpoints({
       },
     }),
 
+    //------------------Add Academic Faculty----------------
     addAcademicFaculty: builder.mutation({
       query: (data) => ({
         url: "/academic-faculties/create-academic-faculty",
@@ -59,6 +63,7 @@ const academicManagementApi = baseApi.injectEndpoints({
       }),
     }),
 
+    //------------------Get Academic Departments----------------
     getAcademicDepartments: builder.query({
       query: () => {
         return { url: "/academic-departments", method: "GET" };
@@ -71,6 +76,7 @@ const academicManagementApi = baseApi.injectEndpoints({
       },
     }),
 
+    //------------------Add Academic Department----------------
     addAcademicDepartment: builder.mutation({
       query: (data) => ({
         url: "/academic-departments/create-academic-department",
@@ -84,5 +90,8 @@ const academicManagementApi = baseApi.injectEndpoints({
 export const {
   useGetAllSemestersQuery,
   useAddAcademicSemestersMutation,
+  useGetAcademicFacultiesQuery,
+  useAddAcademicFacultyMutation,
   useGetAcademicDepartmentsQuery,
+  useAddAcademicDepartmentMutation,
 } = academicManagementApi;
