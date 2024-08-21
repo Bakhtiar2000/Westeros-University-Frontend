@@ -1,28 +1,46 @@
-import { Button, Space, Table, TableColumnsType, TableProps } from "antd";
+import {
+  Button,
+  Pagination,
+  Space,
+  Table,
+  TableColumnsType,
+  TableProps,
+} from "antd";
 import { TQueryParam, TStudent } from "../../../types";
 import { useState } from "react";
 import { useGetAllStudentsQuery } from "../../../redux/features/admin/userManagement.api";
+import { Link } from "react-router-dom";
 
-export type TTableData = Pick<TStudent, "name" | "id">;
+export type TTableData = Pick<
+  TStudent,
+  "fullName" | "id" | "email" | "contactNo"
+>;
 
 const StudentData = () => {
   const [params, setParams] = useState<TQueryParam[]>([]);
-  const [page, setPage] = useState(3);
+  const [page, setPage] = useState(1);
   const {
     data: studentData,
     isLoading,
     isFetching,
   } = useGetAllStudentsQuery([
-    { name: "limit", value: 3 },
+    // { name: "limit", value: 3 },
     { name: "page", value: page },
     { name: "sort", value: "id" },
     ...params,
   ]);
-  const tableData = studentData?.data?.map(({ _id, fullName, id }) => ({
-    key: _id,
-    fullName,
-    id,
-  }));
+
+  const metaData = studentData?.meta;
+
+  const tableData = studentData?.data?.map(
+    ({ _id, fullName, id, email, contactNo }) => ({
+      key: _id,
+      fullName,
+      id,
+      email,
+      contactNo,
+    })
+  );
   const columns: TableColumnsType<TTableData> = [
     {
       title: "Name",
@@ -33,11 +51,21 @@ const StudentData = () => {
       dataIndex: "id",
     },
     {
+      title: "Email",
+      dataIndex: "email",
+    },
+    {
+      title: "Contact No",
+      dataIndex: "contactNo",
+    },
+    {
       title: "Action",
-      render: () => {
+      render: (item) => {
         return (
           <Space>
-            <Button>Details</Button>
+            <Button>
+              <Link to={`/admin/student-data/${item?.key}`}>Details</Link>
+            </Button>
             <Button>Update</Button>
             <Button>Block</Button>
           </Space>
@@ -72,12 +100,21 @@ const StudentData = () => {
   }
 
   return (
-    <Table
-      loading={isFetching} // Shows loading animation from ant design
-      columns={columns}
-      dataSource={tableData}
-      onChange={onChange}
-    />
+    <>
+      <Table
+        loading={isFetching} // Shows loading animation from ant design
+        columns={columns}
+        dataSource={tableData}
+        onChange={onChange}
+        pagination={false}
+      />
+      <Pagination
+        current={page}
+        onChange={(value) => setPage(value)}
+        total={metaData?.total}
+        pageSize={metaData?.limit}
+      />
+    </>
   );
 };
 
