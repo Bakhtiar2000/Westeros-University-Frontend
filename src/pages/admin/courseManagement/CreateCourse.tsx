@@ -4,7 +4,7 @@ import { Button, Col, Flex } from "antd";
 import FormSelect from "../../../components/form/FormSelect";
 import { toast } from "sonner";
 import { TResponse } from "../../../types/global.type";
-import { TAcademicSemester } from "../../../types";
+import { TCourse } from "../../../types";
 import FormInput from "../../../components/form/FormInput";
 import {
   useAddCourseMutation,
@@ -12,7 +12,7 @@ import {
 } from "../../../redux/features/admin/courseManagement.api";
 
 const CreateCourse = () => {
-  const [createCourse] = useAddCourseMutation();
+  const [addCourse] = useAddCourseMutation();
   const { data: courses } = useGetAllCoursesQuery(undefined);
 
   const preRequisiteCoursesOptions = courses?.data?.map((item) => ({
@@ -21,15 +21,14 @@ const CreateCourse = () => {
   }));
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    // const toastId = toast.loading("Creating Semester ...");
-
+    const toastId = toast.loading("Creating Course ...");
     const courseData = {
       ...data,
       code: Number(data.code),
       credits: Number(data.credits),
       isDeleted: false,
       preRequisiteCourses: data.preRequisiteCourses
-        ? data.preRequisiteCourses?.map((item) => ({
+        ? data.preRequisiteCourses?.map((item: string) => ({
             course: item,
             isDeleted: false,
           }))
@@ -37,18 +36,16 @@ const CreateCourse = () => {
     };
 
     console.log(courseData);
-    // try {
-    //   const res = (await addSemester(
-    //     semesterData
-    //   )) as TResponse<TAcademicSemester>;
-    //   if (res.error) {
-    //     toast.error(res.error.data.message, { id: toastId });
-    //   } else {
-    //     toast.success("Semester Created", { id: toastId });
-    //   }
-    // } catch (err) {
-    //   toast.error("Something went wrong", { id: toastId });
-    // }
+    try {
+      const res = (await addCourse(courseData)) as TResponse<TCourse>;
+      if (res.error) {
+        toast.error(res.error.data.message, { id: toastId });
+      } else {
+        toast.success("Course Created", { id: toastId });
+      }
+    } catch (err) {
+      toast.error("Something went wrong", { id: toastId });
+    }
   };
 
   return (
