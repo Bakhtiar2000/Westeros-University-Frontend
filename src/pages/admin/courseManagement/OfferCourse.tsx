@@ -9,8 +9,6 @@ import PHSelectWithWatch from "../../../components/form/FormSelectWithWatch";
 const OfferCourse = () => {
   const [id, setId] = useState("");
 
-  console.log("Inside parent component", id);
-
   const { data: academicFacultyData } = useGetAcademicFacultiesQuery(undefined);
 
   const academicSemesterOptions = academicFacultyData?.data?.map((item) => ({
