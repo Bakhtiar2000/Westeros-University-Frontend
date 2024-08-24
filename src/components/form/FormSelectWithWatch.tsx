@@ -2,7 +2,7 @@ import { Form, Select } from "antd";
 import { useEffect } from "react";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 
-type TPHSelectProps = {
+type TFormSelectProps = {
   label: string;
   name: string;
   options: { value: string; label: string; disabled?: boolean }[] | undefined;
@@ -11,14 +11,14 @@ type TPHSelectProps = {
   onValueChange: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const PHSelectWithWatch = ({
+const FormSelectWithWatch = ({
   label,
   name,
   options,
   disabled,
   mode,
   onValueChange,
-}: TPHSelectProps) => {
+}: TFormSelectProps) => {
   const method = useFormContext();
   // useWatch requires two properties control and element's name
   const inputValue = useWatch({
@@ -50,4 +50,4 @@ const PHSelectWithWatch = ({
   );
 };
 
-export default PHSelectWithWatch;
+export default FormSelectWithWatch;
