@@ -15,10 +15,10 @@ import {
 } from "../../../redux/features/admin/academicManagement.api";
 import UniForm from "../../../components/form/UniForm";
 import FormSelect from "../../../components/form/FormSelect";
-import FormDatePicker from "../../../components/form/FormDatePicker";
 import FormSelectWithWatch from "../../../components/form/FormSelectWithWatch";
 import FormInput from "../../../components/form/FormInput";
 import { weekDaysOptions } from "../../../constants/global";
+import FormTimePicker from "../../../components/form/FormTimePicker";
 
 const OfferCourse = () => {
   const [courseId, setCourseId] = useState("");
@@ -27,7 +27,7 @@ const OfferCourse = () => {
 
   const { data: semesterRegistrationData } = useGetAllRegisteredSemestersQuery([
     { name: "sort", value: "year" },
-    { name: "status", value: "UPCOMING" },
+    { name: "status", value: "UPCOMING" }, // Only upcoming semesters are to be offered
   ]);
 
   const { data: academicFacultyData } = useGetAcademicFacultiesQuery(undefined);
@@ -123,8 +123,8 @@ const OfferCourse = () => {
             name="days"
             label="Days"
           />
-          <FormDatePicker name="startTime" label="Start Time" />
-          <FormDatePicker name="endTime" label="End Time" />
+          <FormTimePicker name="startTime" label="Start Time" />
+          <FormTimePicker name="endTime" label="End Time" />
 
           <Button htmlType="submit">Submit</Button>
         </UniForm>
