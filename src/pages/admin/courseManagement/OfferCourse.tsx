@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Col, Flex } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
@@ -18,6 +19,8 @@ import FormSelectWithWatch from "../../../components/form/FormSelectWithWatch";
 import FormInput from "../../../components/form/FormInput";
 import { weekDaysOptions } from "../../../constants/global";
 import FormTimePicker from "../../../components/form/FormTimePicker";
+import { toast } from "sonner";
+import { TResponse } from "../../../types";
 
 const OfferCourse = () => {
   const [courseId, setCourseId] = useState("");
@@ -85,6 +88,7 @@ const OfferCourse = () => {
   );
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const toastId = toast.loading("Creating Offered Course ...");
     const offeredCourseData = {
       ...data,
       maxCapacity: Number(data.maxCapacity),
@@ -92,9 +96,16 @@ const OfferCourse = () => {
       startTime: moment(new Date(data.startTime)).format("HH:mm"),
       endTime: moment(new Date(data.endTime)).format("HH:mm"),
     };
-
-    const res = await addOfferedCourse(offeredCourseData);
-    console.log(res);
+    try {
+      const res = (await addOfferedCourse(offeredCourseData)) as TResponse<any>;
+      if (res.error) {
+        toast.error(res.error?.data.message, { id: toastId });
+      } else {
+        toast.success("Offered Course Created", { id: toastId });
+      }
+    } catch (err) {
+      toast.error("Something went wrong", { id: toastId });
+    }
   };
 
   return (
