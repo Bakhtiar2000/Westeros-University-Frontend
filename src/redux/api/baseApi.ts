@@ -36,6 +36,10 @@ const baseQueryWithRefreshToken: BaseQueryFn<
     toast.error((result.error.data as { message: string }).message);
   }
 
+  if (result?.error?.status === 403) {
+    toast.error((result.error.data as { message: string }).message);
+  }
+
   if (result?.error?.status === 401) {
     //* Send Refresh
     console.log("Sending refresh token");
