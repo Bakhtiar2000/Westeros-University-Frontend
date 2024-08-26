@@ -15,7 +15,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const defaultValues = {
-    userId: "A-0001",
+    userId: "2024010003",
     password: "12345",
   };
 
