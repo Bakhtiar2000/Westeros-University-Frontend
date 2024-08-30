@@ -4,6 +4,7 @@ import { baseApi } from "../../api/baseApi";
 
 const facultyCourseApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    //----------------Get All Faculty Courses----------------
     getAllFacultyCourses: builder.query({
       query: (args) => {
         console.log(args);
@@ -29,6 +30,7 @@ const facultyCourseApi = baseApi.injectEndpoints({
       },
     }),
 
+    //----------------Add Marks to Student----------------
     addMark: builder.mutation({
       query: (data) => ({
         url: "/enrolled-courses/update-enrolled-course-marks",
