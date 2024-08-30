@@ -29,6 +29,7 @@ const OfferedCourse = () => {
     return acc;
   }, {});
 
+  // Data is modified to get the courses as a group if they are the same course of different sections
   const modifiedData = Object.values(singleObject ? singleObject : {});
 
   const handleEnroll = async (id: any) => {
