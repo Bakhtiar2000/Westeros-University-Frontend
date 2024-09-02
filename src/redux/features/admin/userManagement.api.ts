@@ -6,7 +6,6 @@ const userManagementApi = baseApi.injectEndpoints({
     //-----------------Get All Students-----------------
     getAllStudents: builder.query({
       query: (args) => {
-        console.log(args);
         const params = new URLSearchParams();
 
         if (args) {
