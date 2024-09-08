@@ -34,7 +34,6 @@ const studentCourseManagement = baseApi.injectEndpoints({
     //-----------------Get All Enrolled Courses-----------------
     getAllEnrolledCourses: builder.query({
       query: (args) => {
-        console.log(args);
         const params = new URLSearchParams();
 
         if (args) {
