@@ -4,7 +4,6 @@ import { useGetAllOfferedCoursesQuery, useGetSingleCourseByIdQuery, useGetSingle
 
 const OfferedCourses = () => {
   const { data: offeredCourses, isFetching } = useGetAllOfferedCoursesQuery(undefined);
-  console.log(offeredCourses);
 
   const tableData = offeredCourses?.data?.map(({ _id, course, academicSemester, faculty, section, days, startTime, endTime }) => ({
     key: _id,
@@ -83,7 +82,6 @@ const CourseInfo = (courseId: any) => {
   return singleCourse?.data?.title;
 }
 const SemesterInfo = (semesterId: any) => {
-  console.log(semesterId)
   const { data: singleSemester } = useGetSingleSemesterByIdQuery(semesterId);
   return singleSemester?.data?.name + " " + singleSemester?.data?.year;
 }

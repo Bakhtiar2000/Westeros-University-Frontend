@@ -9,6 +9,8 @@ import {
   useGetAcademicDepartmentsQuery,
 } from "../../../redux/features/admin/academicManagement.api";
 import { useAddFacultyMutation } from "../../../redux/features/admin/userManagement.api";
+import { toast } from "sonner";
+import { TFaculty, TResponse } from "../../../types";
 
 // Default values for development
 const facultyDefaultValues = {
@@ -40,7 +42,8 @@ const CreateFaculty = () => {
     label: item.name,
   }));
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const toastId = toast.loading("Creating Faculty ...");
     const facultyData = {
       password: "12345",
       faculty: {
@@ -51,7 +54,16 @@ const CreateFaculty = () => {
     const formData = new FormData();
     formData.append("data", JSON.stringify(facultyData));
     formData.append("file", data.profileImg);
-    addFaculty(formData);
+    try {
+      const res = (await addFaculty(formData)) as TResponse<TFaculty>
+      if (res.error) {
+        toast.error(res.error.data.message, { id: toastId });
+      } else {
+        toast.success("Faculty Created", { id: toastId });
+      }
+    } catch (err) {
+      toast.error("Something went wrong", { id: toastId });
+    }
 
     // For development phase, console formData using Object.fromEntries
     // console.log(Object.fromEntries(formData));

@@ -10,40 +10,42 @@ import {
   useGetAllSemestersQuery,
 } from "../../../redux/features/admin/academicManagement.api";
 import { useAddStudentMutation } from "../../../redux/features/admin/userManagement.api";
+import { toast } from "sonner";
+import { TResponse, TStudent } from "../../../types";
 
 // Only for development stage
 const studentDefaultValues = {
   name: {
-    firstName: "Mustafa",
-    middleName: "Jahan",
-    lastName: "Kabir",
+    firstName: "Khairul",
+    middleName: "Kabir",
+    lastName: "Bhuiyan",
   },
   gender: "male",
   bloodGroup: "B-",
 
-  email: "testing2@example.com",
+  email: "khairul@gmail.com",
   contactNo: "+1234567892",
   emergencyContactNo: "+0987654323",
   presentAddress: "987 Maple Street, Village, Country",
   permanentAddress: "123 Pine Street, Village, Country",
 
   guardian: {
-    fatherName: "William Johnson",
+    fatherName: "Rashid Latif",
     fatherOccupation: "Architect",
     fatherContactNumber: "+1123456791",
-    motherName: "Emma Johnson",
-    motherOccupation: "Professor",
+    motherName: "Ishrat Ara",
+    motherOccupation: "Housewife",
     motherContactNumber: "+1987654323",
   },
 
   localGuardian: {
-    name: "Sophia Green",
-    occupation: "Pharmacist",
+    name: "Morium Begum",
+    occupation: "Housewife",
     contactNo: "+1234987656",
     address: "321 Local Boulevard, Village, Country",
   },
 
-  admissionSemester: "665de33616ef1a58ead4e1f7",
+  admissionSemester: "66c5e942e9a2559dd9b9087b",
   academicDepartment: "665e0623829cf291c95afdd5",
 };
 
@@ -65,7 +67,8 @@ const CreateStudent = () => {
     label: item.name,
   }));
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const toastId = toast.loading("Creating Student ...");
     const studentData = {
       password: "12345",
       student: data,
@@ -73,7 +76,16 @@ const CreateStudent = () => {
     const formData = new FormData();
     formData.append("data", JSON.stringify(studentData));
     formData.append("file", data.image);
-    addStudent(formData);
+    try {
+      const res = (await addStudent(formData)) as TResponse<TStudent>
+      if (res.error) {
+        toast.error(res.error.data.message, { id: toastId });
+      } else {
+        toast.success("Student Created", { id: toastId });
+      }
+    } catch (err) {
+      toast.error("Something went wrong", { id: toastId });
+    }
 
     //Checking just for development phase. To console formData, we have to use Object.formEntries
     // console.log(Object.fromEntries(formData));

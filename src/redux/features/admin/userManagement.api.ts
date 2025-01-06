@@ -1,4 +1,4 @@
-import { TFaculty, TQueryParam, TResponseRedux, TStudent } from "../../../types";
+import { TAdmin, TFaculty, TQueryParam, TResponseRedux, TStudent } from "../../../types";
 import { baseApi } from "../../api/baseApi";
 
 const userManagementApi = baseApi.injectEndpoints({
@@ -53,6 +53,31 @@ const userManagementApi = baseApi.injectEndpoints({
       },
     }),
 
+    //-----------------Get All Admins-----------------
+    getAllAdmins: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+
+        if (args) {
+          args.forEach((item: TQueryParam) => {
+            params.append(item.name, item.value as string);
+          });
+        }
+
+        return {
+          url: "/admins",
+          method: "GET",
+          params: params,
+        };
+      },
+      transformResponse: (response: TResponseRedux<TAdmin[]>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+    }),
+
     //-----------------Add Students-----------------
     addStudent: builder.mutation({
       query: (data) => ({
@@ -74,6 +99,18 @@ const userManagementApi = baseApi.injectEndpoints({
       },
     }),
 
+    //-----------------Add Admin-----------------
+    addAdmin: builder.mutation({
+      query: (data) => {
+        console.log(data)
+        return {
+          url: "/users/create-admin",
+          method: "POST",
+          body: data,
+        }
+      },
+    }),
+
     //-----------------Change Password-----------------
     changePassword: builder.mutation({
       query: (data) => ({
@@ -88,7 +125,9 @@ const userManagementApi = baseApi.injectEndpoints({
 export const {
   useAddStudentMutation,
   useAddFacultyMutation,
+  useAddAdminMutation,
   useGetAllStudentsQuery,
   useGetAllFacultiesQuery,
+  useGetAllAdminsQuery,
   useChangePasswordMutation,
 } = userManagementApi;

@@ -41,6 +41,21 @@ const academicManagementApi = baseApi.injectEndpoints({
       }),
     }),
 
+    //------------------Get Single Academic Faculty----------------
+    getSingleAcademicFacultyById: builder.query({
+      query: (args: { academicFaculty: string }) => {
+        return {
+          url: `/academic-faculties/${args.academicFaculty}`,
+          method: "GET",
+        }
+      },
+      transformResponse: (response: TResponseRedux<TAcademicFaculty>) => {
+        return {
+          data: response.data
+        };
+      },
+    }),
+
     //------------------Get Academic Faculties----------------
     getAcademicFaculties: builder.query({
       query: () => {
@@ -91,6 +106,7 @@ export const {
   useGetAllSemestersQuery,
   useAddAcademicSemestersMutation,
   useGetAcademicFacultiesQuery,
+  useGetSingleAcademicFacultyByIdQuery,
   useAddAcademicFacultyMutation,
   useGetAcademicDepartmentsQuery,
   useAddAcademicDepartmentMutation,

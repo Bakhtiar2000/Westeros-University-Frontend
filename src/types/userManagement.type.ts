@@ -59,8 +59,6 @@ export interface TAdmin {
   presentAddress: string;
   permanentAddress: string;
   profileImg: string;
-  academicDepartment: TAcademicDepartment;
-  academicFaculty: TAcademicFaculty;
   isDeleted: boolean;
   fullName: string;
 }
