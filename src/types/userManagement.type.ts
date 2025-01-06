@@ -10,7 +10,7 @@ export interface TStudent {
   email: string;
   contactNo: string;
   emergencyContactNo: string;
-  bloogGroup: string;
+  bloodGroup: string;
   presentAddress: string;
   permanentAddress: string;
   guardian: TGuardian;
@@ -20,6 +20,27 @@ export interface TStudent {
   isDeleted: boolean;
   academicDepartment: TAcademicDepartment;
   academicFaculty: TAcademicFaculty;
+  fullName: string;
+}
+
+export interface TFaculty {
+  _id: string;
+  id: string;
+  user: TUser;
+  designation: string;
+  name: TName;
+  gender: string;
+  dateOfBirth: string;
+  email: string;
+  contactNo: string;
+  emergencyContactNo: string;
+  bloodGroup: string;
+  presentAddress: string;
+  permanentAddress: string;
+  profileImg: string;
+  academicDepartment: TAcademicDepartment;
+  academicFaculty: TAcademicFaculty;
+  isDeleted: boolean;
   fullName: string;
 }
 

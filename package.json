@@ -12,6 +12,8 @@
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
     "@reduxjs/toolkit": "^2.2.7",
+    "@splinetool/react-spline": "^4.0.0",
+    "@splinetool/runtime": "^1.9.47",
     "antd": "^5.19.4",
     "jwt-decode": "^4.0.0",
     "localforage": "^1.10.0",

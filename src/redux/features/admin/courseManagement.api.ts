@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
+  TAcademicSemester,
   TCourse,
+  TFaculty,
   TQueryParam,
   TResponseRedux,
   TSemester,
 } from "../../../types";
+import { TOfferedCourse } from "../../../types/studentCourse.type";
 import { baseApi } from "../../api/baseApi";
 
 const courseManagementApi = baseApi.injectEndpoints({
@@ -81,6 +84,78 @@ const courseManagementApi = baseApi.injectEndpoints({
       },
     }),
 
+    //-----------------Get Single Semester by ID-----------------
+    getSingleSemesterById: builder.query({
+      query: (args: { semester: string }) => {
+        return {
+          url: `/academic-semesters/${args.semester}`,
+          method: "GET",
+        }
+      },
+      transformResponse: (response: TResponseRedux<TAcademicSemester>) => {
+        return {
+          data: response.data
+        };
+      },
+    }),
+
+    //-----------------Get Single Faculty by ID-----------------
+    getSingleFacultyById: builder.query({
+      query: (args: { faculty: string }) => {
+        return {
+          url: `/faculties/${args.faculty}`,
+          method: "GET",
+        }
+      },
+      transformResponse: (response: TResponseRedux<TFaculty>) => {
+        return {
+          data: response.data
+        };
+      },
+    }),
+    //-----------------Get Single Course by ID-----------------
+    getSingleCourseById: builder.query({
+      query: (args: { course: string }) => {
+        return {
+          url: `/courses/${args.course}`,
+          method: "GET",
+        }
+      },
+      // providesTags: ["courses"],
+      transformResponse: (response: TResponseRedux<TCourse>) => {
+        return {
+          data: response.data
+        };
+      },
+    }),
+
+
+    //-----------------Get All Offered Courses-----------------
+    getAllOfferedCourses: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+
+        if (args) {
+          args.forEach((item: TQueryParam) => {
+            params.append(item.name, item.value as string);
+          });
+        }
+
+        return {
+          url: "/offered-courses",
+          method: "GET",
+          params: params,
+        };
+      },
+      providesTags: ["offeredCourse"],
+      transformResponse: (response: TResponseRedux<TOfferedCourse[]>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+    }),
+
     //-----------------Add Course-----------------
     addCourse: builder.mutation({
       query: (data) => ({
@@ -134,6 +209,10 @@ export const {
   useGetAllRegisteredSemestersQuery,
   useUpdateRegisteredSemesterMutation,
   useGetAllCoursesQuery,
+  useGetSingleCourseByIdQuery,
+  useGetSingleSemesterByIdQuery,
+  useGetSingleFacultyByIdQuery,
+  useGetAllOfferedCoursesQuery,
   useAddCourseMutation,
   useAddFacultiesMutation,
   useGetCourseFacultiesQuery,
