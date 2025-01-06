@@ -11,6 +11,8 @@ type TCourse = {
   [index: string]: any;
 };
 
+// Students can only see some filtered offered course, not all. They can see courses from their department only, they cannot see courses that are already done, cannot see courses that's prerequisites are not met, they can only see courses that are offered in the current semester and many more criteria. With this filtering, this page only shows a few courses
+
 const OfferedCourse = () => {
   const { data: offeredCourseData } = useGetAllOfferedCoursesQuery(undefined);
   const [enroll] = useEnrolCourseMutation();
