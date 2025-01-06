@@ -43,7 +43,7 @@ const studentDefaultValues = {
     address: "321 Local Boulevard, Village, Country",
   },
 
-  // admissionSemester: "665de33616ef1a58ead4e1f7",
+  admissionSemester: "665de33616ef1a58ead4e1f7",
   academicDepartment: "665e0623829cf291c95afdd5",
 };
 

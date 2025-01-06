@@ -62,7 +62,19 @@ const userManagementApi = baseApi.injectEndpoints({
       }),
     }),
 
-    //-----------------Add Students-----------------
+    //-----------------Add Faculty-----------------
+    addFaculty: builder.mutation({
+      query: (data) => {
+        console.log(data)
+        return {
+          url: "/users/create-faculty",
+          method: "POST",
+          body: data,
+        }
+      },
+    }),
+
+    //-----------------Change Password-----------------
     changePassword: builder.mutation({
       query: (data) => ({
         url: "/auth/change-password",
@@ -75,6 +87,7 @@ const userManagementApi = baseApi.injectEndpoints({
 
 export const {
   useAddStudentMutation,
+  useAddFacultyMutation,
   useGetAllStudentsQuery,
   useGetAllFacultiesQuery,
   useChangePasswordMutation,
