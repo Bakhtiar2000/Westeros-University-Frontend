@@ -87,10 +87,10 @@ export type TName = {
 export type TGuardian = {
   fatherName: string;
   fatherOccupation: string;
-  fatherContactNo: string;
+  fatherContactNumber: string;
   motherName: string;
   motherOccupation: string;
-  motherContactNo: string;
+  motherContactNumber: string;
   _id: string;
 };
 
