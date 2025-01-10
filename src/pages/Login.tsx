@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import Spline from '@splinetool/react-spline';
-import { Button, Row } from "antd";
+import { Button, Modal, Row } from "antd";
 import { FieldValues } from "react-hook-form";
-import { useLoginMutation } from "../redux/features/auth/authApi";
+import { useForgotPasswordMutation, useLoginMutation } from "../redux/features/auth/authApi";
 import { useAppDispatch } from "../redux/hooks";
 import { setUser, TUser } from "../redux/features/auth/authSlice";
 import { verifyToken } from "../utils/verifyToken";
@@ -11,10 +11,37 @@ import { toast } from "sonner";
 import UniForm from "../components/form/UniForm";
 import FormInput from "../components/form/FormInput";
 import logo from "../assets/logo.png"
+import { useState } from "react";
+import { TResponse } from "../types";
 
 const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [forgotPassword] = useForgotPasswordMutation();
+
+  const handleSubmit = async (data: any) => {
+    const toastId = toast.loading("Sending request ...");
+
+    try {
+      const res = (await forgotPassword(data)) as TResponse<any>;
+      if (res.error) {
+        toast.error(res.error.data.message, { id: toastId });
+      } else {
+        toast.success("Please check your mail", { id: toastId });
+      }
+    } catch (err) {
+      toast.error("Something went wrong", { id: toastId });
+    }
+  };
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const defaultValues = {
     userId: "2024010003",
@@ -60,6 +87,18 @@ const Login = () => {
             <img className="mx-auto w-[180px] h-[120px] object-cover" src={logo} alt="" />
             <FormInput type="text" name="userId" label="Id" />
             <FormInput type="password" name="password" label="Password" />
+            <p onClick={showModal} className="flex justify-end -mt-5 mb-5 text-xs cursor-pointer text-blue-500 hover:underline">Forgot password?</p>
+            <Modal
+              title={`Change Password`}
+              open={isModalOpen}
+              onCancel={handleCancel}
+              footer={null}
+            >
+              <UniForm onSubmit={handleSubmit}>
+                <FormInput type="text" name="id" label="Your University Id" />
+                <Button htmlType="submit">Submit</Button>
+              </UniForm>
+            </Modal>
             <Button htmlType="submit">Login</Button>
           </UniForm>
         </Row>

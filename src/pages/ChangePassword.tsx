@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Row } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import { useChangePasswordMutation } from "../redux/features/admin/userManagement.api";
 import { TResponse } from "../types";
 import { useAppDispatch } from "../redux/hooks";
 import { logout } from "../redux/features/auth/authSlice";
@@ -9,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import UniForm from "../components/form/UniForm";
 import FormInput from "../components/form/FormInput";
 import { toast } from "sonner";
+import { useChangePasswordMutation } from "../redux/features/auth/authApi";
 
 const ChangePassword = () => {
   const [changePassword] = useChangePasswordMutation();
