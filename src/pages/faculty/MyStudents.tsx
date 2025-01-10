@@ -19,6 +19,7 @@ const MyStudents = () => {
       { name: "semesterRegistration", value: registeredSemesterId },
       { name: "course", value: courseId },
     ]);
+  console.log(facultyCoursesData)
 
   const tableData = facultyCoursesData?.data?.map(
     ({ _id, student, semesterRegistration, offeredCourse }: any) => ({

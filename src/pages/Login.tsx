@@ -83,7 +83,7 @@ const Login = () => {
 
       <div className="relative flex justify-center items-center h-full">
         <Row className="flex flex-col items-center" justify="center" align="middle" style={{ height: "100vh" }}>
-          <UniForm className="bg-white px-10 md py-8 rounded-lg shadow-2xl" onSubmit={onSubmit} defaultValues={defaultValues}>
+          <UniForm className="bg-white px-16 md py-8 rounded-lg shadow-2xl" onSubmit={onSubmit} defaultValues={defaultValues}>
             <img className="mx-auto w-[180px] h-[120px] object-cover" src={logo} alt="" />
             <FormInput type="text" name="userId" label="Id" />
             <FormInput type="password" name="password" label="Password" />

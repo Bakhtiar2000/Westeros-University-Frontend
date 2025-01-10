@@ -4,6 +4,7 @@ import AcademicSemester from "../pages/admin/academicManagement/AcademicSemester
 import CreateAcademicDepartment from "../pages/admin/academicManagement/CreateAcademicDepartment";
 import CreateAcademicFaculty from "../pages/admin/academicManagement/CreateAcademicFaculty";
 import CreateAcademicSemester from "../pages/admin/academicManagement/CreateAcademicSemester";
+import AdminChangePassword from "../pages/admin/AdminChangePassword";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import Courses from "../pages/admin/courseManagement/Courses";
 import CreateCourse from "../pages/admin/courseManagement/CreateCourse";
@@ -142,5 +143,10 @@ export const adminPaths = [
         element: <OfferedCourses />,
       },
     ],
+  },
+  {
+    name: "Change Password",
+    path: "admin-change-password",
+    element: <AdminChangePassword />,
   },
 ];
