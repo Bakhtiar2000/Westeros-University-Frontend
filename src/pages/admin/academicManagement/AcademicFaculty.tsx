@@ -1,4 +1,4 @@
-import { Table } from "antd";
+import { Button, Table } from "antd";
 import { useGetAcademicFacultiesQuery } from "../../../redux/features/admin/academicManagement.api";
 
 const AcademicFaculty = () => {
@@ -9,7 +9,17 @@ const AcademicFaculty = () => {
       title: "Name",
       key: "name",
       dataIndex: "name",
-    }
+    },
+    {
+      title: "Action",
+      render: () => {
+        return (
+          <div>
+            <Button>Update</Button>
+          </div>
+        );
+      },
+    },
   ];
   if (isLoading) {
     <p className="text-center text-5xl font-semibold mt-40">Loading...</p>;

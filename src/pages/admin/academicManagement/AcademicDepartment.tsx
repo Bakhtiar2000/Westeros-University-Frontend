@@ -1,4 +1,4 @@
-import { Table } from "antd";
+import { Button, Table } from "antd";
 import { useGetAcademicDepartmentsQuery } from "../../../redux/features/admin/academicManagement.api";
 
 const AcademicDepartment = () => {
@@ -19,6 +19,16 @@ const AcademicDepartment = () => {
       title: "Academic Faculty",
       key: "academicFacultyName",
       dataIndex: "academicFacultyName",
+    },
+    {
+      title: "Action",
+      render: () => {
+        return (
+          <div>
+            <Button>Update</Button>
+          </div>
+        );
+      },
     },
   ];
 

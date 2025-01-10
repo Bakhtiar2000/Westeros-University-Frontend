@@ -14,6 +14,9 @@ import SemesterRegistration from "../pages/admin/courseManagement/SemesterRegist
 import CreateAdmin from "../pages/admin/userManagement/CreateAdmin";
 import CreateFaculty from "../pages/admin/userManagement/CreateFaculty";
 import CreateStudent from "../pages/admin/userManagement/CreateStudent";
+import FacultyData from "../pages/admin/userManagement/FacultyData";
+import FacultyDetails from "../pages/admin/userManagement/FacultyDetails";
+import FacultyUpdate from "../pages/admin/userManagement/FacultyUpdate";
 import StudentData from "../pages/admin/userManagement/StudentData";
 import StudentDetails from "../pages/admin/userManagement/StudentDetails";
 import StudentUpdate from "../pages/admin/userManagement/StudentUpdate";
@@ -74,6 +77,19 @@ export const adminPaths = [
       {
         path: "update-student-data/:studentId",
         element: <StudentUpdate />,
+      },
+      {
+        name: "faculties",
+        path: "faculty-data",
+        element: <FacultyData />,
+      },
+      {
+        path: "faculty-data/:facultyId",
+        element: <FacultyDetails />,
+      },
+      {
+        path: "update-faculty-data/:facultyId",
+        element: <FacultyUpdate />,
       },
       {
         name: "Create Student",
