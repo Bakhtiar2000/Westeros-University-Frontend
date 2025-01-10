@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import UniForm from "../components/form/UniForm";
 import FormInput from "../components/form/FormInput";
+import logo from "../assets/logo.png"
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -42,24 +43,29 @@ const Login = () => {
       toast.error("Something went wrong", { id: loginToastId, duration: 2000 });
     }
   };
-
   return (
-    <div className='flex justify-center items-center gap-5 w-full'>
-      {/* <div className='bg-black w-[1000px] h-[800px]'>
-        <Spline
-          scene="https://prod.spline.design/o0yw7lgpQCLdgB1P/scene.splinecode"
-        />
-      </div> */}
+    <div className="relative w-full h-screen">
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: "url('https://img.freepik.com/premium-vector/back-school-seamless-pattern-doodle-style-background-education-hand-drawn-objects-symbols_43029-2255.jpg?w=1380')",
+        }}
+      ></div>
 
-      <Row justify="center" align="middle" style={{ height: "100vh" }}>
-        <UniForm onSubmit={onSubmit} defaultValues={defaultValues}>
-          <FormInput type="text" name="userId" label="Id" />
-          <FormInput type="password" name="password" label="Password" />
-          <Button htmlType="submit">Login</Button>
-          {/*  // In ant design, type keyword is over-written as htmlType */}
-        </UniForm>
-      </Row>
+      <div className="absolute inset-0 bg-black opacity-10"></div>
+
+      <div className="relative flex justify-center items-center h-full">
+        <Row className="flex flex-col items-center" justify="center" align="middle" style={{ height: "100vh" }}>
+          <UniForm className="bg-white px-10 md py-8 rounded-lg shadow-2xl" onSubmit={onSubmit} defaultValues={defaultValues}>
+            <img className="mx-auto w-[180px] h-[120px] object-cover" src={logo} alt="" />
+            <FormInput type="text" name="userId" label="Id" />
+            <FormInput type="password" name="password" label="Password" />
+            <Button htmlType="submit">Login</Button>
+          </UniForm>
+        </Row>
+      </div>
     </div>
+
   );
 };
 

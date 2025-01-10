@@ -7,7 +7,7 @@ import { Menu } from "antd";
 import { useAppSelector } from "../../redux/hooks";
 import { TUser, useCurrentToken } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
-
+import logo from "../../assets/logo without bg.png"
 const { Sider } = Layout;
 
 const userRole = {
@@ -55,9 +55,13 @@ const Sidebar = () => {
           alignItems: "center",
         }}
       >
-        <h1>Westeros university</h1>
+        <div className="flex flex-col pt-20">
+          <img className="w-[150px] h-[100px] object-cover object-center" src={logo} alt="" />
+          {/* <h1>Westeros university</h1> */}
+        </div>
       </div>
       <Menu
+        className="pt-14"
         theme="dark"
         mode="inline"
         defaultSelectedKeys={["4"]}

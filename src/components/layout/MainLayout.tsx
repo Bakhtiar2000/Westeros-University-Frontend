@@ -14,8 +14,8 @@ const MainLayout = () => {
     <Layout style={{ height: "100%" }}>
       <Sidebar />
       <Layout>
-        <Header>
-          <Button onClick={handleLogout}>Logout</Button>{" "}
+        <Header className="flex items-center justify-end">
+          <Button className="bg-red-500 text-white border-0" onClick={handleLogout}>Logout</Button>{" "}
         </Header>
         <Content style={{ margin: "24px 16px 0" }}>
           <div

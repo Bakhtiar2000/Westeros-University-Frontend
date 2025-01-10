@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Table } from "antd";
-import { useGetAllOfferedCoursesQuery, useGetSingleCourseByIdQuery, useGetSingleFacultyByIdQuery, useGetSingleSemesterByIdQuery } from "../../../redux/features/admin/courseManagement.api";
+import { useGetAllOfferedCoursesQuery, useGetSingleCourseByIdQuery, useGetSingleSemesterByIdQuery } from "../../../redux/features/admin/courseManagement.api";
+import { useGetSingleFacultyByIdQuery } from "../../../redux/features/admin/userManagement.api";
 
 const OfferedCourses = () => {
   const { data: offeredCourses, isFetching } = useGetAllOfferedCoursesQuery(undefined);

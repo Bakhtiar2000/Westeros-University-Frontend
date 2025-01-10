@@ -10,6 +10,7 @@ import {
 
 type TFormConfig = {
   defaultValues?: Record<string, any>;
+  className?: string;
   resolver?: any;
 };
 
@@ -21,6 +22,7 @@ type TFormProps = {
 const UniForm = ({
   onSubmit,
   children,
+  className,
   defaultValues,
   resolver,
 }: TFormProps) => {
@@ -44,6 +46,7 @@ const UniForm = ({
   return (
     <FormProvider {...methods}>
       <Form
+        className={className}
         layout="vertical"
         onFinish={methods.handleSubmit(submitWithFormReset)}
       >

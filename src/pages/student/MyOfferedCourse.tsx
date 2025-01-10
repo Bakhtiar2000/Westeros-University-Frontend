@@ -13,8 +13,9 @@ type TCourse = {
 
 // Students can only see some filtered offered course, not all. They can see courses from their department only, they cannot see courses that are already done, cannot see courses that's prerequisites are not met, they can only see courses that are offered in the current semester and many more criteria. With this filtering, this page only shows a few courses
 
-const OfferedCourse = () => {
+const MyOfferedCourse = () => {
   const { data: offeredCourseData } = useGetAllOfferedCoursesQuery(undefined);
+  console.log(offeredCourseData)
   const [enroll] = useEnrolCourseMutation();
 
   const singleObject = offeredCourseData?.data?.reduce((acc: TCourse, item) => {
@@ -53,7 +54,8 @@ const OfferedCourse = () => {
   };
 
   if (!modifiedData.length) {
-    return <p>No available courses</p>;
+    console.log(offeredCourseData, modifiedData)
+    return <p className="text-center mt-20 text-semibold text-4xl text-red-500">No available courses for you 😞</p>;
   }
 
   return (
@@ -95,4 +97,4 @@ const OfferedCourse = () => {
   );
 };
 
-export default OfferedCourse;
+export default MyOfferedCourse;

@@ -78,6 +78,52 @@ const userManagementApi = baseApi.injectEndpoints({
       },
     }),
 
+    //-----------------Get Single Student by ID-----------------
+    getSingleStudentById: builder.query({
+      query: (args: { student: string }) => {
+        console.log(args)
+        return {
+          url: `/students/${args.student}`,
+          method: "GET",
+        }
+      },
+      transformResponse: (response: TResponseRedux<TStudent>) => {
+        return {
+          data: response.data
+        };
+      },
+    }),
+
+    //-----------------Get Single Faculty by ID-----------------
+    getSingleFacultyById: builder.query({
+      query: (args: { faculty: string }) => {
+        return {
+          url: `/faculties/${args.faculty}`,
+          method: "GET",
+        }
+      },
+      transformResponse: (response: TResponseRedux<TFaculty>) => {
+        return {
+          data: response.data
+        };
+      },
+    }),
+
+    //-----------------Get Single Admin by ID-----------------
+    getSingleAdminById: builder.query({
+      query: (args: { admin: string }) => {
+        return {
+          url: `/admins/${args.admin}`,
+          method: "GET",
+        }
+      },
+      transformResponse: (response: TResponseRedux<TAdmin>) => {
+        return {
+          data: response.data
+        };
+      },
+    }),
+
     //-----------------Add Students-----------------
     addStudent: builder.mutation({
       query: (data) => ({
@@ -119,6 +165,18 @@ const userManagementApi = baseApi.injectEndpoints({
         body: data,
       }),
     }),
+
+    //-----------------Change Status-----------------
+    changeStatus: builder.mutation({
+      query: (args) => {
+        console.log(args)
+        return {
+          url: `/users/change-status/${args.userId}`,
+          method: "POST",
+          body: args.data,
+        }
+      },
+    }),
   }),
 });
 
@@ -129,5 +187,9 @@ export const {
   useGetAllStudentsQuery,
   useGetAllFacultiesQuery,
   useGetAllAdminsQuery,
+  useGetSingleStudentByIdQuery,
+  useGetSingleFacultyByIdQuery,
+  useGetSingleAdminByIdQuery,
   useChangePasswordMutation,
+  useChangeStatusMutation
 } = userManagementApi;

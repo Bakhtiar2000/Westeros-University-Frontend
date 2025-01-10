@@ -2,7 +2,6 @@
 import {
   TAcademicSemester,
   TCourse,
-  TFaculty,
   TQueryParam,
   TResponseRedux,
   TSemester,
@@ -99,20 +98,6 @@ const courseManagementApi = baseApi.injectEndpoints({
       },
     }),
 
-    //-----------------Get Single Faculty by ID-----------------
-    getSingleFacultyById: builder.query({
-      query: (args: { faculty: string }) => {
-        return {
-          url: `/faculties/${args.faculty}`,
-          method: "GET",
-        }
-      },
-      transformResponse: (response: TResponseRedux<TFaculty>) => {
-        return {
-          data: response.data
-        };
-      },
-    }),
     //-----------------Get Single Course by ID-----------------
     getSingleCourseById: builder.query({
       query: (args: { course: string }) => {
@@ -211,7 +196,6 @@ export const {
   useGetAllCoursesQuery,
   useGetSingleCourseByIdQuery,
   useGetSingleSemesterByIdQuery,
-  useGetSingleFacultyByIdQuery,
   useGetAllOfferedCoursesQuery,
   useAddCourseMutation,
   useAddFacultiesMutation,
