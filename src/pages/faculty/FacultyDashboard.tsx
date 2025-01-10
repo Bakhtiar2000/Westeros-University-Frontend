@@ -16,7 +16,7 @@ const FacultyDashboard = () => {
   return (
     <Card style={{ margin: "0px" }}>
       <h1 className="text-4xl my-3">Welcome {facultyData?.data?.fullName}</h1>
-      <p className="text-xl mb-10">Designation: {facultyData?.data?.user?.role}</p>
+      <p className="text-xl mb-10 uppercase">{facultyData?.data?.user?.role}</p>
       <img
         className="w-32 h-32 object-cover object-center rounded mb-6"
         src={facultyData?.data?.profileImg ? facultyData?.data?.profileImg : "https://img.freepik.com/premium-vector/3d-realistic-person-people-vector-illustration_884296-4859.jpg?w=826"}

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Table } from "antd";
-import { useGetAllEnrolledCoursesQuery } from "../../redux/features/student/studentCourseManagement.api";
+import { useGetMyEnrolledCoursesQuery } from "../../redux/features/student/studentCourseManagement.api";
 
 const MySchedule = () => {
-  const { data: enrolledCourses, isFetching } = useGetAllEnrolledCoursesQuery(undefined);
+  const { data: enrolledCourses, isFetching } = useGetMyEnrolledCoursesQuery(undefined);
   console.log(enrolledCourses)
 
   const tableData = enrolledCourses?.data?.map(({ _id, course, faculty, offeredCourse }) => ({

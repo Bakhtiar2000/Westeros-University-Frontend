@@ -24,6 +24,7 @@ const ProtectedRoute = ({ children, role }: TProtectedRoute) => {
   if (token) {
     user = verifyToken(token);
   }
+  console.log("From protected layer-> ", user, role)
 
   if (role !== undefined && role !== (user as TUser)?.role) {
     dispatch(logout());

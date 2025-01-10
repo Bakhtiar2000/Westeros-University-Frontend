@@ -2,7 +2,7 @@
 import { Button, Col, Row } from "antd";
 import {
   useEnrolCourseMutation,
-  useGetAllOfferedCoursesQuery,
+  useGetMyOfferedCoursesQuery,
 } from "../../redux/features/student/studentCourseManagement.api";
 import { toast } from "sonner";
 import { TResponse } from "../../types";
@@ -14,7 +14,7 @@ type TCourse = {
 // Students can only see some filtered offered course, not all. They can see courses from their department only, they cannot see courses that are already done, cannot see courses that's prerequisites are not met, they can only see courses that are offered in the current semester and many more criteria. With this filtering, this page only shows a few courses
 
 const MyOfferedCourse = () => {
-  const { data: offeredCourseData } = useGetAllOfferedCoursesQuery(undefined);
+  const { data: offeredCourseData } = useGetMyOfferedCoursesQuery(undefined);
   console.log(offeredCourseData)
   const [enroll] = useEnrolCourseMutation();
 
@@ -52,6 +52,8 @@ const MyOfferedCourse = () => {
       toast.error("Something went wrong", { id: toastId });
     }
   };
+
+  console.log(modifiedData)
 
   if (!modifiedData.length) {
     console.log(offeredCourseData, modifiedData)

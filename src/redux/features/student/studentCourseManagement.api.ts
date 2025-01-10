@@ -5,8 +5,9 @@ import { baseApi } from "../../api/baseApi";
 
 const studentCourseManagement = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    //-----------------Get All Offered Courses-----------------
-    getAllOfferedCourses: builder.query({
+
+    //-----------------Get My Offered Courses-----------------
+    getMyOfferedCourses: builder.query({
       query: (args) => {
         console.log(args)
         const params = new URLSearchParams();
@@ -16,7 +17,7 @@ const studentCourseManagement = baseApi.injectEndpoints({
             params.append(item.name, item.value as string);
           });
         }
-
+        console.log("Inside-> ", args)
         return {
           url: "offered-courses/me/my-offered-courses",
           method: "GET",
@@ -32,8 +33,8 @@ const studentCourseManagement = baseApi.injectEndpoints({
       },
     }),
 
-    //-----------------Get All Enrolled Courses-----------------
-    getAllEnrolledCourses: builder.query({
+    //-----------------Get My Enrolled Courses-----------------
+    getMyEnrolledCourses: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
 
@@ -70,7 +71,7 @@ const studentCourseManagement = baseApi.injectEndpoints({
 });
 
 export const {
-  useGetAllOfferedCoursesQuery,
+  useGetMyOfferedCoursesQuery,
   useEnrolCourseMutation,
-  useGetAllEnrolledCoursesQuery,
+  useGetMyEnrolledCoursesQuery,
 } = studentCourseManagement;

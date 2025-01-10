@@ -16,7 +16,7 @@ const StudentDashboard = () => {
   return (
     <Card style={{ margin: "0px" }}>
       <h1 className="text-4xl my-3">Welcome {studentData?.data?.fullName}</h1>
-      <p className="text-xl mb-10">Designation: {studentData?.data?.user?.role}</p>
+      <p className="text-xl mb-10 uppercase">{studentData?.data?.user?.role}</p>
       <div className="flex justify-between items-center">
         <img
           className="w-32 h-32 object-cover object-center rounded mb-6"

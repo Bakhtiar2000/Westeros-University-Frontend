@@ -16,7 +16,7 @@ const AdminDashboard = () => {
   return (
     <Card style={{ margin: "0px" }}>
       <h1 className="text-4xl my-3">Welcome {adminData?.data?.fullName}</h1>
-      <p className="text-xl mb-10">Designation: {adminData?.data?.user?.role}</p>
+      <p className="text-xl mb-10 uppercase">{adminData?.data?.user?.role}</p>
       <img
         className="w-32 h-32 object-cover object-center rounded mb-6"
         src={adminData?.data?.profileImg ? adminData?.data?.profileImg : "https://img.freepik.com/premium-vector/3d-realistic-person-people-vector-illustration_884296-4859.jpg?w=826"}

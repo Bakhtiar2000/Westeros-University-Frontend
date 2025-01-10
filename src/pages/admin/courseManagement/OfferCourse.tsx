@@ -114,7 +114,7 @@ const OfferCourse = () => {
         <UniForm onSubmit={onSubmit}>
           <FormSelect
             name="semesterRegistration"
-            label="Semester Registrations"
+            label="Upcoming Semester"
             options={semesterRegistrationOptions}
           />
           <FormSelect
